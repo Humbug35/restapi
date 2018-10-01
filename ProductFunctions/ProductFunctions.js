@@ -1,19 +1,31 @@
-let json = require("../articles");
+let products = require("../articles");
 
-class ProductFunctions {
+
+
+
+class Product {
 
   getAllProducts(req, res) {
-    return res.status(200).send({
-      success: 'true',
-      message: 'Products retrieved successfully',
-      products: json
-    })
+    let paginationArray = [];
+    let skip = req.query.skip || 0;
+    let limit = req.query.limit || products.length;
+    for(let i = skip; i <= limit; i++) {
+      products.map(product => {
+        if(i == product.id) {
+          return paginationArray.push(product)
+        }
+      })
+    }
+      return res.status(200).send({
+        success: 'true',
+        message: 'Products retrieved successfully',
+        products: paginationArray
+      })
   }
 
   getSingleProduct(req, res) {
     const id = req.params.id;
-    console.log(id)
-    let findProduct = json.find(product => {
+    let findProduct = products.find(product => {
       return product.id == id;
     })
     if(findProduct) {
@@ -28,8 +40,10 @@ class ProductFunctions {
       message: 'Product does not exist'
     })
   }
+
+
 }
 
 
-const productFunctions = new ProductFunctions();
-export default productFunctions;
+const product = new Product();
+export default product;

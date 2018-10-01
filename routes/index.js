@@ -1,11 +1,11 @@
 let express = require('express');
-import productFunctions from '../ProductFunctions/productFunctions.js';
+import product from '../ProductFunctions/productFunctions.js';
 
 
 const router = express.Router();
 
 
-router.get('/products', productFunctions.getAllProducts);
-router.get('/products/:id', productFunctions.getSingleProduct);
+router.get('/products', product.getAllProducts);
+router.get('/products/:id', product.getSingleProduct);
 
 export default router;

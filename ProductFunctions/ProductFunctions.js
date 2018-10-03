@@ -1,46 +1,30 @@
 let products = require("../articles");
 const PostProduct = require('../models/product');
-let mongoose = require('mongoose');
-
-
-
-
+const mongoose = require('mongoose');
 
 class Product {
-
   getProducts(req, res) {
-    let array;
     PostProduct.find()
     .then(docs => {
-      array = docs;
-      res.status(200).json(docs)
-      console.log(array)
+      let array = docs;
+      let paginationArray = [];
+      let skip = Number(req.query.skip) || 0;
+      let limit = Number(req.query.limit) || docs.length;
+      for(let i = skip; i <= limit; i++) {
+        array.map(product => {
+          if(i === product.id) {
+            return paginationArray.push(product)
+          }
+        })
+      }
+      console.log('PaginationArray: ', paginationArray)
+      res.status(200).send({
+        success: 'true',
+        message: 'Product retrieved from database',
+        paginationArray
+      })
     })
     .catch(err => console.log('Errormessage: ', err))
-  }
-
-  getAllProducts(req, res) {
-    let paginationArray = [];
-    let skip = Number(req.query.skip) || 0;
-    let limit = Number(req.query.limit) || products.length;
-    for(let i = skip; i <= limit; i++) {
-      products.map((product) => {
-        if(i === product.id) {
-          return paginationArray.push(product)
-        }
-      })
-    }
-    if(skip > limit) {
-      return res.status(400).send({
-        success: 'false',
-        message: 'Skip are higher than limit'
-      })
-    }
-      return res.status(200).send({
-        success: 'true',
-        message: 'Products retrieved successfully',
-        products: paginationArray
-      })
   }
 
   getSingleProduct(req, res) {
@@ -60,6 +44,7 @@ class Product {
       message: 'Product does not exist'
     })
   }
+
   postProduct(req, res) {
     const product = new PostProduct({
       _id: new mongoose.Types.ObjectId(),
@@ -68,7 +53,6 @@ class Product {
       price: req.body.price,
       Category: req.body.Category
     })
-    products.push(product);
     product.save()
     .then(
       res.status(200).send({
@@ -77,11 +61,7 @@ class Product {
         product
       })
     );
-
   }
-
-
-
 }
 
 const product = new Product();

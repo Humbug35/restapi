@@ -8,6 +8,17 @@ let mongoose = require('mongoose');
 
 class Product {
 
+  getProducts(req, res) {
+    let array;
+    PostProduct.find()
+    .then(docs => {
+      array = docs;
+      res.status(200).json(docs)
+      console.log(array)
+    })
+    .catch(err => console.log('Errormessage: ', err))
+  }
+
   getAllProducts(req, res) {
     let paginationArray = [];
     let skip = Number(req.query.skip) || 0;
@@ -58,7 +69,8 @@ class Product {
       Category: req.body.Category
     })
     products.push(product);
-    product.save().then(
+    product.save()
+    .then(
       res.status(200).send({
         success: 'true',
         message: 'Done',

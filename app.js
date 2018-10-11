@@ -1,47 +1,73 @@
-import router from './routes/index.js';
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-let json = require('./articles.json');
-let PostProduct = require('./models/product')
 const express = require("express");
 const app = express();
+let createError = require('http-errors');
+const products = require('./articles.json');
+
+const productsRoutes = require('./routes/products')
+
+mongoose.connect('mongodb+srv://admin:Omegapoint@cluster0-jtzfp.mongodb.net/BosseLinus?retryWrites=true', { useNewUrlParser: true });
+const db = mongoose.connection;
+
+db.once('open', () => {
+  console.log('Connected to MongoDB')
+})
+
+db.on('error', (error) => {
+  console.log(error)
+})
+
 
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true}));
-app.use(router);
+app.get('/', (req, res) => {
+  res.redirect('/products')
+})
+app.use('/products', productsRoutes);
 
-const db = mongoose.connect('mongodb+srv://admin:Omegapoint@cluster0-jtzfp.mongodb.net/BosseLinus?retryWrites=true');
-const dataBase = mongoose.connection;
+app.use((req, res, next) => {
+  const error = new Error('Not Found');
+  error.status = 404;
+  next(error);
+})
 
-   json.forEach((product, res) => {
-       product = new PostProduct({
-         _id: new mongoose.Types.ObjectId(),
-         id: product.id,
-         product_name: product.product_name,
-         price: product.price,
-         Category: product.Category
-       }).save()
-         // .then(producten => console.log(producten))
-         // .catch(error => console.log('errormessage: ', error))
-     });
+app.use((error, req, res, next) => {
+  res.status(error.status || 500);
+  res.json({
+    error: {
+      message: error.message,
+      status: error.status
+    },
+  })
+})
+
+
+
+
+
+let sendJsonFileToDatabase = false;
+function sendProductsToDatabase() {
+  if(sendJsonFileToDatabase) {
+    products.forEach(product => {
+      product = new Product({
+        _id: mongoose.Types.ObjectId(),
+        productNumber: product.id,
+        product_name: product.product_name,
+        price: product.price,
+        Category: product.Category.toLowerCase()
+      }).save()
+    })
+  } else {
+      console.log('False')
+  }
+}
+sendProductsToDatabase();
+
+
 
 const port = 5000;
 app.listen(port, () => {
   console.log(`server running on port ${port}`)
 })
-
-
-
-// obj = {
-//   id: product.id,
-//   name: product.product_name,
-//   price: product.price,
-//   Category: product.Category,
-// }
-// let schema = mongoose.Schema({ id: Number, name: String, price: String, Category: String }),
-// productSchema = mongoose.model('Article', schema),
-// Products = new productSchema({ id: obj.id, name: obj.name, price: obj.price, Category: obj.Category });
-// console.log('obj', obj)
-
- //let obj = {};

@@ -1,18 +1,17 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
-const Mongo = require('../DataLayer/mongo');
+const ProductDataLayer = require('../DataLayer/ProductDataLayer');
 
-let mongo = new Mongo();
+let productDataLayer = new ProductDataLayer();
 
 router.get('/', (req, res, next) => {
   let skip = Number(req.query.skip);
   let limit = Number(req.query.limit);
   let category = req.query.category;
   let price = req.query.price;
-  mongo.getAllProducts(skip, limit, price, category)
+  productDataLayer.getAllProducts(skip, limit, price, category)
     .then(products => {
-      console.log('then')
       res.status(200).json(products)
   })
   .catch(() => {
@@ -22,7 +21,7 @@ router.get('/', (req, res, next) => {
 
 router.get('/:productId', (req, res, next) => {
   const productId = req.params.productId;
-  mongo.getSingleProduct(productId)
+  productDataLayer.getSingleProduct(productId)
     .then(product => {
       if(product) {
           res.status(200).json(product)
@@ -46,7 +45,7 @@ router.post('/', (req, res, next) => {
       Category: req.body.Category.toLowerCase()
     }
   }
-  mongo.postProduct(body)
+  productDataLayer.postProduct(body)
    .then(product => {
      res.status(201).json({
        message: 'Product Created',
@@ -60,7 +59,7 @@ router.post('/', (req, res, next) => {
 
 router.delete('/:productId', (req, res, next) => {
   const productId = req.params.productId;
-  mongo.deleteProduct(productId)
+  productDataLayer.deleteProduct(productId)
     .then(product => {
       res.status(200).send(`Product with ID: ${productId} deleted`)
     })
@@ -69,13 +68,30 @@ router.delete('/:productId', (req, res, next) => {
     })
 });
 
-router.patch('/:productId', (req, res, next) => {
-  mongo.patchProduct(req, res, next)
-});
-
-router.put('/:productId', (req, res, next) => {
-  mongo.updateProduct(req, res, next)
-})
+// router.patch('/:productId', (req, res, next) => {
+//   const productId = req.params.productId;
+//   const body = {
+//     product_name: req.body.product_name,
+//     price: req.body.price,
+//     Category: req.body.Category
+//   }
+//   mongo.patchProduct(productId, body)
+//    .then(product => {
+//      console.log('Product', product)
+//      if(product) {
+//         res.json(product)
+//      } else {
+//        console.log('ELSE')
+//      }
+//    })
+//    .catch(() => {
+//      next()
+//    })
+// });
+//
+// router.put('/:productId', (req, res, next) => {
+//   mongo.updateProduct(req, res, next)
+// })
 
 module.exports = router;
 

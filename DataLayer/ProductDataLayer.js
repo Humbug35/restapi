@@ -2,16 +2,16 @@ const mongoose = require('mongoose');
 const Product = require('./Schema/product');
 const products = require('../articles.json');
 
-class Mongo {
+class ProductDataLayer {
   constructor(){
-    this._connect();
+    //this._connect();
     this.Product = null;
     this._loadSchema();
   }
 
   _connect(){
     mongoose.connect('mongodb+srv://admin:Omegapoint@cluster0-jtzfp.mongodb.net/BosseLinus?retryWrites=true', { useNewUrlParser: true })
-       .then(console.log('Connected to MongoDB'))
+       .then(console.log('Connected to MongoDB, Product'))
        .catch(err => console.log(err))
   }
 
@@ -45,7 +45,6 @@ class Mongo {
 
 
   getSingleProduct(productId) {
-    console.log(productId)
     return this.Product.findById(productId)
         .select('_id product_name price Category')
   }
@@ -55,7 +54,7 @@ class Mongo {
           _id: mongoose.Types.ObjectId(),
           product_name: body.product_name,
           price: body.price,
-          Category: body.Category
+          Category: body.Category.toLowerCase()
         }).save()
   }
 
@@ -63,44 +62,33 @@ class Mongo {
     return this.Product.findByIdAndDelete(productId)
   }
 
-  patchProduct(req, res){
-    const productId = req.params.productId;
-      Product.findById({ _id: productId }, (err, product) => {
-        if(err) {
-          res.status(404).send('Product Not Found')
-        } else {
-          for (let prop in req.body) {
-              product[prop] = req.body[prop];
-          }
-          product.save()
-          res.json(product);
-        }
-      })
-  }
+  // patchProduct(productId, body){
+  //   return this.Product.
+  // }
 
-  updateProduct(req, res, next) {
-    const productId = req.params.productId;
-      this.Product.findById(productId)
-        .then(product => {
-          if(req.body.product_name && req.body.price && req.body.Category) {
-              product.product_name = req.body.product_name;
-              product.price = req.body.price;
-              product.Category = req.body.Category.toLowerCase();
-              product.save()
-                .then(res.json(product))
-          } else {
-              res.status(404).send('Some field is empty')
-          }
-        })
-        .catch(() => {
-          next()
-        })
-  };
+  // updateProduct(req, res, next) {
+  //   const productId = req.params.productId;
+  //     this.Product.findById(productId)
+  //       .then(product => {
+  //         if(req.body.product_name && req.body.price && req.body.Category) {
+  //             product.product_name = req.body.product_name;
+  //             product.price = req.body.price;
+  //             product.Category = req.body.Category.toLowerCase();
+  //             product.save()
+  //               .then(res.json(product))
+  //         } else {
+  //             res.status(404).send('Some field is empty')
+  //         }
+  //       })
+  //       .catch(() => {
+  //         next()
+  //       })
+  // };
 };
 
 
 
-module.exports = Mongo;
+module.exports = ProductDataLayer;
 
 
 
@@ -175,5 +163,19 @@ module.exports = Mongo;
 //     })
 //     .catch(() => {
 //       next()
+//     })
+// }
+// patchProduct(req, res){
+//   const productId = req.params.productId;
+//     Product.findById({ _id: productId }, (err, product) => {
+//       if(err) {
+//         res.status(404).send('Product Not Found')
+//       } else {
+//         for (let prop in req.body) {
+//             product[prop] = req.body[prop];
+//         }
+//         product.save()
+//         res.json(product);
+//       }
 //     })
 // }

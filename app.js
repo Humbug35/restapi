@@ -2,10 +2,20 @@ const bodyParser = require('body-parser');
 const express = require("express");
 const app = express();
 let createError = require('http-errors');
-const Mongo = require('./DataLayer/mongo');
-const productsRoutes = require('./routes/products')
+const ProductDataLayer = require('./DataLayer/ProductDataLayer');
+const OrderDataLayer = require('./DataLayer/OrderDataLayer');
+const productsRoutes = require('./routes/products');
+const orderRoutes = require('./routes/orders');
+const userRoutes = require('./routes/users');
+const mongoose = require('mongoose');
+const session = require('express-session');
 
-let mongo = new Mongo();
+//let productDataLayer = new ProductDataLayer();
+//let orderDataLayer = new OrderDataLayer();
+
+mongoose.connect('mongodb+srv://admin:Omegapoint@cluster0-jtzfp.mongodb.net/BosseLinus?retryWrites=true', { useNewUrlParser: true })
+   .then(console.log('Connected to MongoDB'))
+   .catch(err => console.log(err))
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true}));
@@ -24,6 +34,8 @@ app.use((req, res, next) => {
 });
 
 app.use('/products', productsRoutes);
+app.use('/orders', orderRoutes);
+app.use('/users', userRoutes);
 
 app.use('*', (req, res, next) => {
   const error = new Error('Not Found');

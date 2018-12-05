@@ -20,7 +20,7 @@ let orderSchema = mongoose.Schema({
     {
       _id: false,
       fullname: String,
-      carNumber: Number,
+      cardNumber: Number,
       expireMonth: Number,
       expireYear: Number,
       cvc: Number
@@ -37,6 +37,7 @@ let orderSchema = mongoose.Schema({
 
       }
     ],
+    totalPrice: Number,
   date: { type: Date, default: Date.now}
 })
 

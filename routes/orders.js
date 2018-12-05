@@ -14,7 +14,21 @@ router.get('/', (req, res) => {
 })
 
 router.post('/', (req, res) => {
-  orderDataLayer.sendNewOrder(req.body)
+  let body = req.body;
+  orderDataLayer.sendNewOrder(body)
+    .then(order => {
+      if(order) {
+        res.status(201).json({
+          success: true,
+          message: 'Order created'
+        })
+      } else {
+        res.status(400).json({
+          success: false,
+          message: 'Something went wrong'
+        })
+      }
+    })
 })
 
 router.get('/:orderId', (req, res, next) => {

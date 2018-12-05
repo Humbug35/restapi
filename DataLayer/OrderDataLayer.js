@@ -34,7 +34,6 @@ class OrderDataLayer {
     }
   }
   sendNewOrder(body) {
-    console.log('Body', body)
     return new Order({
       _id: mongoose.Types.ObjectId(),
       fullName: body.fullname,
@@ -42,7 +41,8 @@ class OrderDataLayer {
       phonenumber: body.phone,
       address: body.address,
       cardInfo: body.cardInfo,
-      products: body.products
+      products: body.products,
+      totalPrice: body.totalPrice
     }).save()
   }
   getAllOrders() {

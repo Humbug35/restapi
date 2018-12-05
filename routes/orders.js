@@ -13,6 +13,10 @@ router.get('/', (req, res) => {
     })
 })
 
+router.post('/', (req, res) => {
+  orderDataLayer.sendNewOrder(req.body)
+})
+
 router.get('/:orderId', (req, res, next) => {
   const orderId = req.params.orderId;
   orderDataLayer.getSingleOrder(orderId)

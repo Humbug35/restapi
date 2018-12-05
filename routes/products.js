@@ -19,6 +19,7 @@ router.get('/', (req, res, next) => {
   })
 });
 
+
 router.get('/:productId', (req, res, next) => {
   const productId = req.params.productId;
   productDataLayer.getSingleProduct(productId)

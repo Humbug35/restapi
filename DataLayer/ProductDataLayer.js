@@ -36,7 +36,7 @@ class ProductDataLayer {
 
   getAllProducts(skip, limit, price, category) {
     return this.Product.find()
-      .select('_id product_name price Category')
+      .select('_id product_name price Category productImage')
       .sort(price ? { price: price } : { _id: 1 })
       .skip(skip)
       .limit(limit)
@@ -46,7 +46,7 @@ class ProductDataLayer {
 
   getSingleProduct(productId) {
     return this.Product.findById(productId)
-        .select('_id product_name price Category')
+        .select('_id product_name price Category productImage')
   }
 
   postProduct(body) {
@@ -54,7 +54,8 @@ class ProductDataLayer {
           _id: mongoose.Types.ObjectId(),
           product_name: body.product_name,
           price: body.price,
-          Category: body.Category.toLowerCase()
+          Category: body.Category.toLowerCase(),
+          productImage: body.productImage
         }).save()
   }
 

@@ -1,0 +1,163 @@
+[{
+  "fullName": "Amerigo Perche",
+  "email": "aperche0@arizona.edu",
+  "phonenumber": 752349687,
+  "address": [
+    {
+      "streetAddress": "5661 Calypso Lane",
+      "city": "Ladysmith",
+      "country": "Canada",
+      "zipcode": "V9G"
+    }
+  ],
+  "products": [
+    {
+      "_id": "5bbb658a333374a139f2af84",
+      "product_name": "Puff Pastry - Slab",
+      "price": "$3.85",
+      "Category": "Garden",
+      "quantity": 3,
+      "test": 3
+    },
+    {
+      "_id": "5bbb658a333374a139f2af87",
+      "product_name": "Appetizer - Mushroom Tart",
+      "price": "$8.78",
+      "Category": "Kids"
+    },
+    {
+      "_id": "5bbb658a333374a139f2af95",
+      "product_name": "Cookie Dough - Chocolate Chip",
+      "price": "$2.45",
+      "Category": "Clothing"
+    }
+  ]
+}, {
+  "fullName": "Cortney Rown",
+  "email": "crown1@desdev.cn",
+  "phonenumber": 718645238,
+  "address": [
+      {
+      "streetAddress": "9399 Mcguire Trail",
+      "city": "Atlanta",
+      "country": "United States",
+      "zipcode": "30343"
+    }
+  ],
+  "products": [
+    {
+      "_id": "5bbb658a333374a139f2af85",
+      "product_name": "Dragon Fruit",
+      "price": "$5.72",
+      "Category": "Tools"
+    },
+    {
+      "_id": "5bbb658a333374a139f2af86",
+      "product_name": "Cup Translucent 9 Oz",
+      "price": "$8.08",
+      "Category": "Outdoors"
+    }
+  ]
+}, {
+  "fullName": "Lib Boncoeur",
+  "email": "lboncoeur2@nba.com",
+  "phonenumber": 793201483,
+  "address": [
+      {
+        "streetAddress": "2236 Lakeland Plaza",
+        "city": "Bronx",
+        "country": "United States",
+        "zipcode": "10464"
+      }
+  ],
+  "products": [
+    {
+        "_id": "5bbb658a333374a139f2af93",
+        "product_name": "Halibut - Steaks",
+        "price": "$4.82",
+        "Category": "Kids"
+    },
+    {
+        "_id": "5bbb658a333374a139f2af94",
+        "product_name": "Food Colouring - Green",
+        "price": "$7.18",
+        "Category": "Garden"
+    },
+    {
+        "_id": "5bbb658a333374a139f2af95",
+        "product_name": "Cookie Dough - Chocolate Chip",
+        "price": "$2.45",
+        "Category": "Clothing"
+    },
+    {
+        "_id": "5bbb658a333374a139f2af96",
+        "product_name": "Pasta - Ravioli",
+        "price": "$0.90",
+        "Category": "Toys"
+    }
+  ]
+}, {
+  "fullName": "Aprilette Van Driel",
+  "email": "avan3@netscape.com",
+  "phonenumber": 741238567,
+  "address": [
+      {
+        "streetAddress": "62513 Forster Parkway",
+        "city": "Amherst",
+        "country": "Canada",
+        "zipcode": "B4H"
+      }
+  ],
+  "products": [
+    {
+        "_id": "5bbb658a333374a139f2afa7",
+        "product_name": "Potatoes - Pei 10 Oz",
+        "price": "$7.52",
+        "Category": "Movies"
+    },
+    {
+        "_id": "5bbb658a333374a139f2afa8",
+        "product_name": "Cornstarch",
+        "price": "$8.51",
+        "Category": "Beauty"
+    },
+    {
+        "_id": "5bbb658a333374a139f2afa9",
+        "product_name": "Sauce - Alfredo",
+        "price": "$8.82",
+        "Category": "Outdoors"
+    },
+    {
+        "_id": "5bbb658a333374a139f2afaa",
+        "product_name": "Pepper - Chipotle, Canned",
+        "price": "$6.16",
+        "Category": "Electronics"
+    },
+    {
+        "_id": "5bbb658a333374a139f2afab",
+        "product_name": "Bread Base - Italian",
+        "price": "$8.09",
+        "Category": "Toys"
+    }
+  ]
+}, {
+  "fullName": "Bradan Hartzenberg",
+  "email": "bhartzenberg4@histats.com",
+  "phonenumber": 724378194,
+  "address": [
+      {
+        "streetAddress": "6143 Florence Terrace",
+        "city": "Littleton",
+        "country": "United States",
+        "zipcode": "80126"
+      }
+  ],
+  "products": [
+    {
+        "_id": "5bbb658a333374a139f2afd0",
+        "product_name": "Durian Fruit",
+        "price": "$9.17",
+        "Category": "Books"
+    }
+  ]
+}]

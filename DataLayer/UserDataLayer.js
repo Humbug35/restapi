@@ -20,7 +20,7 @@ class UserDataLayer {
   }
 
   signUp(body) {
-    return this.User.find({ email: body.email, username: body.username })
+    return this.User.find({ username: body.username, email: body.email})
       .then(user => {
         if(user.length >= 1) {
           return null;

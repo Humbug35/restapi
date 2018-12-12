@@ -33,6 +33,18 @@ class OrderDataLayer {
           })
     }
   }
+  sendNewOrder(body) {
+    return new Order({
+      _id: mongoose.Types.ObjectId(),
+      fullName: body.fullname,
+      email: body.email,
+      phonenumber: body.phone,
+      address: body.address,
+      cardInfo: body.cardInfo,
+      products: body.products,
+      totalPrice: body.totalPrice
+    }).save()
+  }
   getAllOrders() {
     return this.Order.find()
       .select('fullName address email products')

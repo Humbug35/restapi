@@ -13,7 +13,17 @@ let orderSchema = mongoose.Schema({
       streetAddress: String,
       city: String,
       country: String,
-      zipcode: String
+      zipcode: Number
+    }
+  ],
+  cardInfo: [
+    {
+      _id: false,
+      fullname: String,
+      cardNumber: Number,
+      expireMonth: Number,
+      expireYear: Number,
+      cvc: Number
     }
   ],
   products:
@@ -27,6 +37,7 @@ let orderSchema = mongoose.Schema({
 
       }
     ],
+    totalPrice: Number,
   date: { type: Date, default: Date.now}
 })
 

@@ -6,7 +6,8 @@ const mongoose = require('mongoose');
       productNumber: Number,
       product_name:  String,
       price:  String,
-      Category: String
+      Category: String,
+      productImage: Object
     })
 
 module.exports = mongoose.model('Product', ProductSchema)

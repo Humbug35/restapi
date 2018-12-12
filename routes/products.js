@@ -1,9 +1,25 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
+const multer = require('multer');
+
 const ProductDataLayer = require('../DataLayer/ProductDataLayer');
 
 let productDataLayer = new ProductDataLayer();
+
+const storage = multer.diskStorage({
+  destination: function(req, file, cb) {
+    console.log('Destianation', file)
+    cb(null, './uploads/');
+  },
+  filename: function(req, file, cb) {
+    cb(null, new Date().toISOString().replace(/:/g, '-') + file.originalname);
+  }
+});
+
+
+const upload = multer({ storage: storage });
+console.log('Upload', upload)
 
 router.get('/', (req, res, next) => {
   let skip = Number(req.query.skip);
@@ -18,6 +34,7 @@ router.get('/', (req, res, next) => {
     next()
   })
 });
+
 
 router.get('/:productId', (req, res, next) => {
   const productId = req.params.productId;
@@ -34,15 +51,19 @@ router.get('/:productId', (req, res, next) => {
     })
 });
 
-router.post('/', (req, res, next) => {
+router.post('/', upload.single('productimage'), (req, res, next) => {
+  console.log('Body', req.body)
+  console.log('File', req.file)
   let body;
   if(!req.body.product_name || '' && !req.body.price || '' && !req.body.Category || '') {
+    console.log('IF')
       res.status(403).send('Some field is empty')
   } else {
     body = {
       product_name: req.body.product_name,
       price: req.body.price,
-      Category: req.body.Category.toLowerCase()
+      Category: req.body.Category.toLowerCase(),
+      productImage: req.file.path
     }
   }
   productDataLayer.postProduct(body)

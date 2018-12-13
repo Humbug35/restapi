@@ -5,7 +5,6 @@ const orders = require('../orders.json');
 
 class OrderDataLayer {
   constructor() {
-    //this._connect();
     this.Order = null;
     this._loadSchema();
     this.ordersToDatabase();

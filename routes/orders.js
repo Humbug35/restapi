@@ -17,7 +17,6 @@ router.post('/', (req, res) => {
   let body = req.body;
   orderDataLayer.sendNewOrder(body)
     .then(order => {
-      console.log(order._id)
       if(order) {
         res.status(201).json({
           success: true,
